@@ -1,0 +1,66 @@
+# QA Middle Assignment
+
+## Overview
+
+This project contains E2E automated tests for The Internet test application.
+
+Tested website:
+https://the-internet.herokuapp.com
+
+## Tools
+
+- Playwright
+- TypeScript
+- Node.js
+- Gherkin-style feature files
+
+## Covered areas
+
+- Login page
+- File upload page
+- Dynamic loading page
+
+## How to install dependencies
+
+npm install
+
+## How to run tests
+
+npx playwright test
+
+## How to open test report
+
+npx playwright show-report
+
+## Test run result
+
+Latest run:
+
+- 18 passed
+- 3 failed
+
+The 3 failed tests are related to the same found defect on the file upload page. The test fails in Chromium, Firefox, and WebKit.
+
+## Found defect
+
+### BUG-UI-001: Upload without selected file returns Internal Server Error
+
+Page: /upload
+
+Steps to reproduce:
+
+1. Open the upload page.
+2. Do not select a file.
+3. Click the Upload button.
+
+Expected result:
+
+A user-friendly validation message is displayed, for example:
+Please select a file.
+
+Actual result:
+
+The page displays:
+Internal Server Error
+
+Severity: Medium
