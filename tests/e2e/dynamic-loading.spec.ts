@@ -1,5 +1,5 @@
 import { test } from '@playwright/test';
-import { DynamicLoadingPage } from './pages/DynamicLoadingPage';
+import { DynamicLoadingPage } from '../pages/DynamicLoadingPage';
 
 test.describe('Dynamic loading page', () => {
   test('shows hidden element after loading finishes', async ({ page }) => {

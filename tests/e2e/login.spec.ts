@@ -1,6 +1,6 @@
 import { test } from '@playwright/test';
-import { LoginPage } from './pages/LoginPage';
-import users from './fixtures/users.json';
+import { LoginPage } from '../pages/LoginPage';
+import users from '../fixtures/users.json';
 
 test.describe('Login page', () => {
   test('successful login with valid credentials', async ({ page }) => {
