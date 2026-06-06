@@ -2,52 +2,64 @@
 
 ## BPMN: Booking Creation and Cancellation Process
 
-The diagram describes the main user flow for creating a booking and two exception paths:
+The diagram describes the main user flow for creating a booking, user cancellation, and two exception paths:
 
 - room is not available;
 - payment is not successful.
 
-```mermaid
+~~~mermaid
 flowchart TD
     start((Start)) --> selectRoom[User selects room]
     selectRoom --> enterDates[User enters check-in and checkout dates]
     enterDates --> submitBooking[User submits booking request]
     submitBooking --> availability{Is room available?}
-
     availability -- No --> showUnavailable[Frontend shows room unavailable message]
     showUnavailable --> endUnavailable((Booking not created))
-
     availability -- Yes --> enterPayment[User enters payment details]
     enterPayment --> payment{Is payment successful?}
-
     payment -- No --> showPaymentError[Frontend shows payment error]
     showPaymentError --> retryOrCancel{Retry payment?}
     retryOrCancel -- Yes --> enterPayment
     retryOrCancel -- No --> cancelPending[System cancels pending booking]
     cancelPending --> endPaymentFailed((Booking not confirmed))
-
     payment -- Yes --> createBooking[API creates confirmed booking]
     createBooking --> saveBooking[Database saves booking]
     saveBooking --> sendEmail[Email Service sends confirmation email]
     sendEmail --> showSuccess[Frontend shows booking confirmation]
     showSuccess --> endSuccess((Booking confirmed))
-```
+~~~
+
+## BPMN: Booking Cancellation Flow
+
+~~~mermaid
+flowchart TD
+    cancelStart((Start)) --> openBookings[User opens My Bookings page]
+    openBookings --> selectBooking[User selects confirmed booking]
+    selectBooking --> clickCancel[User clicks Cancel booking]
+    clickCancel --> cancellationAllowed{Is cancellation allowed?}
+    cancellationAllowed -- No --> showCancelDenied[Frontend shows cancellation is not available]
+    showCancelDenied --> cancelDeniedEnd((Booking remains confirmed))
+    cancellationAllowed -- Yes --> confirmCancel[User confirms cancellation]
+    confirmCancel --> updateStatus[API updates booking status to cancelled]
+    updateStatus --> saveCancelled[Database saves cancelled status]
+    saveCancelled --> sendCancelEmail[Email Service sends cancellation email]
+    sendCancelEmail --> showCancelled[Frontend shows cancellation confirmation]
+    showCancelled --> cancelSuccessEnd((Booking cancelled))
+~~~
 
 ## Sequence Diagram: Booking Creation
 
-```mermaid
+~~~mermaid
 sequenceDiagram
     actor User
     participant Frontend
     participant API
     participant Database
     participant EmailService as Email Service
-
     User->>Frontend: Select room and dates
     Frontend->>API: Send booking creation request
     API->>Database: Check room availability
     Database-->>API: Availability result
-
     alt Room is available
         API->>Database: Create booking
         Database-->>API: Booking created
@@ -59,11 +71,11 @@ sequenceDiagram
         API-->>Frontend: Return availability error
         Frontend-->>User: Show room unavailable message
     end
-```
+~~~
 
 ## State Transition: Booking Object
 
-```mermaid
+~~~mermaid
 stateDiagram-v2
     [*] --> pending: Booking request created
     pending --> confirmed: Payment successful
@@ -73,7 +85,7 @@ stateDiagram-v2
     confirmed --> completed: Checkout date passed
     cancelled --> [*]
     completed --> [*]
-```
+~~~
 
 ## State Transition Test Coverage
 
