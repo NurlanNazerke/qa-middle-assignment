@@ -19,6 +19,14 @@ https://the-internet.herokuapp.com
 - Login page
 - File upload page
 - Dynamic loading page
+  
+## Task 4: SQL and NoSQL
+
+SQL queries are located in `sql/queries.sql`.
+
+MongoDB written answer is located in `nosql/mongodb-answer.md`.
+
+SQL dialect: PostgreSQL.
 
 ## How to install dependencies
 
