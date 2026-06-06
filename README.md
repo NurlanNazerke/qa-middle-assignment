@@ -28,6 +28,17 @@ MongoDB written answer is located in `nosql/mongodb-answer.md`.
 
 SQL dialect: PostgreSQL.
 
+## Task 5: Documentation and Diagrams
+
+Booking process documentation and diagrams are located in `diagrams/booking-process.md`.
+
+BPMN source file is located in `diagrams/booking-bpmn.drawio`.
+
+The diagrams include:
+- BPMN-style booking creation process with happy path and two exception flows
+- Sequence Diagram for User, Frontend, API, Database, and Email Service interaction
+- Booking State Transition diagram with required test coverage notes
+
 ## How to install dependencies
 
 npm install
