@@ -19,6 +19,21 @@ https://the-internet.herokuapp.com
 - Login page
 - File upload page
 - Dynamic loading page
+
+## Project Structure
+
+- `postman/` — Postman collection and environment for Task 1
+- `test-cases/` — manual UI test cases for Task 2
+- `tests/` — Playwright E2E autotests for Task 3
+- `sql/` — SQL queries for Task 4
+- `nosql/` — MongoDB written answer for Task 4
+- `diagrams/` — booking process diagrams for Task 5
+
+## How to run Postman collection with Newman
+
+```bash
+newman run postman/collection.json -e postman/environment.json
+```
   
 ## Task 4: SQL and NoSQL
 
